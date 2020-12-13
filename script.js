@@ -1,10 +1,12 @@
 'use strict';
 
-const searchURL = 'https://api.gbif.org/v1/species/search?q=';
-
+const gbifSearchURL = 'https://api.gbif.org/v1/species/search?q=';
 
 const api_keyPlantNet = '2a10K49jJByXOk1hHs7VjQII8';
-const plantNetURL = 'https://my-api.plantnet.org/v2/identify/'
+const plantNetURL = 'https://my-api.plantnet.org/v2/identify/';
+
+const api_keyPlantId = 'F5OR9OEGqaLht0poNjD1QxKP2ep4Rp6cTAKeb6nswYPT68nJNd';
+const plantIdURL ='https://api.plant.id/v2/identify';
 
 // https://my-api.plantnet.org/v2/identify/all?
 
@@ -12,8 +14,8 @@ const plantNetURL = 'https://my-api.plantnet.org/v2/identify/'
 
 
 
+
 function displayResults(responseJson) {
-    console.log(responseJson);
     let html = '';
     // responseJson.results.forEach((elem) => {
     //     console.log(elem);
@@ -29,14 +31,14 @@ function displayResults(responseJson) {
     //     <p>Kingdom: ${elem.kingdom}</p>`
     // });
 
-    responseJson.results.forEach((elem) => {
-        elem.vernacularNames.forEach((name) => {
-            console.log(name);
-            console.log(elem.genus);
-            html += `<li><h3>${name.vernacularName}</h3>
-            <p>${elem.canonicalName}</p>`
+    responseJson.results.map((elem) => {
+        elem.vernacularNames.map((name) => {
+            console.log(name.vernacularName);
+            // console.log(name);
+            // console.log(elem.genus);
+            html += `<li><p>${elem.canonicalName}</p>
+            <p>${name.vernacularName}</p></li>`
         });
-        
     });
     
         $('#results-list').html(html);
@@ -45,7 +47,7 @@ function displayResults(responseJson) {
 };
 
 function getPlants(query) {
-    const urlSearch = searchURL + query;
+    const urlSearch = gbifSearchURL + query;
     
 console.log(urlSearch);
 
@@ -61,14 +63,12 @@ console.log(urlSearch);
     .catch(error => {
         const err_str = `Something went wrong: ${JSON.stringify(error)}`;
         $('#js-error-message').text(err_str);
-
     });
 
 };
 
 
 function watchForm() {
-    
         $('#js-form').submit(event => {
         event.preventDefault();
         const searchTerm = $('#js-search-term').val();
@@ -78,7 +78,6 @@ function watchForm() {
 }
 
 function getPageEvent() {
-    
         $('#plants').click(event => {
             event.preventDefault();
             getPlants();
