@@ -4,16 +4,14 @@ const gbifSearchURL = 'https://api.gbif.org/v1/species/search?q=';
 
 const api_keyPlantNet = '2a10K49jJByXOk1hHs7VjQII8';
 const plantNetURL = 'https://my-api.plantnet.org/v2/identify/';
+// https://my-api.plantnet.org/v2/identify/all?
+// https://my-api.plantnet.org/v2/identify/all?images={url}&organs={flower, leaf, etc}&include-related-images={true or false}&lang=en&api-key=2a10K49jJByXOk1hHs7VjQII8 
 
 const api_keyPlantId = 'F5OR9OEGqaLht0poNjD1QxKP2ep4Rp6cTAKeb6nswYPT68nJNd';
 const plantIdURL ='https://api.plant.id/v2/identify';
 
-// https://my-api.plantnet.org/v2/identify/all?
-// https://my-api.plantnet.org/v2/identify/all?images={url}&organs={flower, leaf, etc}&include-related-images={true or false}&lang=en&api-key=2a10K49jJByXOk1hHs7VjQII8 
 
-
-
-
+/*JS for Plant.id API*/
 document.querySelector('button').onclick = function sendIdentification() {
     const files = [...document.querySelector('input[type=file]').files];
     const promises = files.map((file) => {
