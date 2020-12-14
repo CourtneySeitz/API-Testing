@@ -55,19 +55,21 @@ document.querySelector('button').onclick = function sendIdentification() {
         return response.json();
     })
     .then(function (data) {
-        
-        console.log('Success:', data)
-        
-        let output =`<il>${data.id}</il>`
-    
-    document.querySelector('#results-list').innerHTML = output;
+        console.log('Success:', data);
+        let html = '';
+        data.suggestions.forEach((elem) => {
+            html += `<il><p>ID: ${elem.id}</p>
+            <p>${elem.plant_name}</p></il>`
+        // let elem = document.querySelector("#results");
+        // elem.classList.remove(".hidden");
+    })
+        document.querySelector('#results-list').innerHTML = html;
     })
     .catch(function (error) {
     document.querySelector('#js-error-message').innerHTML = error;
     });
 })
 }
-
 
 
 
